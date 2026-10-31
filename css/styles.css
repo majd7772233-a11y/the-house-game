@@ -5242,3 +5242,5 @@ body.house-ar #tooltip { min-width: 150px; width: auto; max-width: 260px; }
 body.house-ar .text_cloud { text-align: right; }
 body.house-ar #items { direction: rtl; }
 body.house-ar #settings_language { cursor: pointer; }
+
+body.house-ar #preloader::before { content: "جارٍ التحميل..."; font-family: Tahoma, Arial, sans-serif; }
