@@ -170,15 +170,27 @@ for (var translationKey in translations) {
   }
  }
 }
-var attributes=["data-tooltip","data-info","title","alt","placeholder","aria-label"];
+var reverseTranslations = {};
+for (var originalKey in translations) {
+ if (Object.prototype.hasOwnProperty.call(translations, originalKey)) {
+  var arabicValue = translations[originalKey].replace(/^\s+|\s+$/g, "");
+  var englishValue = originalKey.replace(/^\s+|\s+$/g, "");
+  if (arabicValue && !Object.prototype.hasOwnProperty.call(reverseTranslations, arabicValue)) reverseTranslations[arabicValue] = englishValue;
+ }
+}
+var attributes=["title","alt","placeholder","aria-label"];
 var storageKey="the-house-language-v2";
 var language="ar", languageItem=null, languageText=null;
 try { var saved=window.localStorage.getItem(storageKey); if(saved==="ar"||saved==="en") language=saved; } catch(ignore) {}
 function translate(value) {
- if(typeof value!=="string"||language!=="ar") return value;
+ if(typeof value!=="string") return value;
  var match=value.match(/^(\s*)([\s\S]*?)(\s*)$/), core=match?match[2]:value;
- if(Object.prototype.hasOwnProperty.call(translations,core)) return (match?match[1]:"")+translations[core]+(match?match[3]:"");
- return value.replace(/The item "([^"]+)" has been used!/g,function(all,item){return "تم استخدام العنصر «"+(translations[item]||item)+"»!";});
+ if(language==="ar") {
+  if(Object.prototype.hasOwnProperty.call(translations,core)) return (match?match[1]:"")+translations[core]+(match?match[3]:"");
+  return value.replace(/The item "([^"]+)" has been used!/g,function(all,item){return "تم استخدام العنصر «"+(translations[item]||item)+"»!";});
+ }
+ if(Object.prototype.hasOwnProperty.call(reverseTranslations,core)) return (match?match[1]:"")+reverseTranslations[core]+(match?match[3]:"");
+ return value.replace(/تم استخدام العنصر «([^»]+)»!/g,function(all,item){return 'The item "'+(reverseTranslations[item]||item)+'" has been used!';});
 }
 function hasSwitcherAncestor(node) {
  while(node&&node.nodeType===1){if(node.hasAttribute("data-house-i18n-keep"))return true;node=node.parentNode;}
