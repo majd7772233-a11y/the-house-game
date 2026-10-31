@@ -57,7 +57,7 @@
   var observer = null;
   function translate(value) {
     if (typeof value !== "string" || language !== "ar") return value;
-    var match = value.match(/^(\\s*)([\\s\\S]*?)(\\s*)$/);
+    var match = value.match(/^(\s*)([\s\S]*?)(\s*)$/);
     var core = match ? match[2] : value;
     if (Object.prototype.hasOwnProperty.call(translations, core)) return (match ? match[1] : "") + translations[core] + (match ? match[3] : "");
     return value.replace(/The item "([^"]+)" has been used!/g, function (_, item) {
