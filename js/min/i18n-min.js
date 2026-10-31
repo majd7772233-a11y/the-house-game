@@ -32,7 +32,24 @@
     "How to enable javascript?":"كيفية تفعيل JavaScript؟","see instructions":"اطّلع على التعليمات","You have to enable javascript on your browser in order to play The House:":"يجب تفعيل JavaScript في متصفحك لتتمكن من لعب The House:",
     "Note:":"ملاحظة:","You'll also need the latest browser version. Otherwise the game won't start!":"ستحتاج أيضاً إلى أحدث إصدار من المتصفح، وإلا فلن تبدأ اللعبة!",
     "Game made by":"تطوير","Follow me on":"تابعني على","Twitter":"Twitter","Learn more about the game on":"تعرف على المزيد عن اللعبة في","Github":"GitHub",
-    "Loading...":"جارٍ التحميل...","Resume":"متابعة","Restart":"إعادة البدء","The House":"The House"
+    "Loading...":"جارٍ التحميل...","Resume":"متابعة","Restart":"إعادة البدء","The House":"The House",
+    "Looks like it's turned off.":"يبدو أنه مطفأ.","I... I don't think it's a good idea to go there.":"أنا... لا أعتقد أن الذهاب إلى هناك فكرة جيدة.",
+    "There's NO WAY I'm going there!":"لا يمكنني الذهاب إلى هناك إطلاقاً!","counting...":"جارٍ العد...","You're not ready yet":"لست مستعداً بعد.",
+    "You have to be at least partially complete to travel...":"يجب أن تنجز جزءاً من المهمة على الأقل حتى تتمكن من الانتقال...",
+    "You're ready. You can go now...":"أصبحت مستعداً. يمكنك الذهاب الآن...","But... Where?":"لكن... إلى أين؟","To meet with yourself.":"لتقابل نفسك.",
+    "It doesn't work anymore...":"لم يعد يعمل...","completion: ":"نسبة الإنجاز: ","status: hidden":"الحالة: مخفي","status: revealed":"الحالة: مكشوف",
+    "activate?":"تفعيل؟","I'm waiting...":"أنا أنتظر...","It's coming!":"إنه قادم!","Show me the way to him.":"أرني الطريق إليه.",
+    "I feel... Kind of... Better now.":"أشعر... أنني... أفضل قليلاً الآن.","It's so nice outside!":"الجو في الخارج جميل جداً!",
+    "Your stop is next.":"محطتك التالية.","You have to leave the train.":"عليك مغادرة القطار.","Huh..?":"ماذا..؟","OK...":"حسناً...",
+    "I guess I have no choice. I need to accept you.":"أظن أنه ليس لدي خيار. عليّ تقبّلك.","But this time...":"لكن هذه المرة...","I'll absorb you.":"سأمتصّك.",
+    "The furnace want's to eat your note.":"الفرن يريد أن يأكل ملاحظتك.","The furnace want's to eat a coal.":"الفرن يريد أن يأكل قطعة فحم.",
+    "The furnace wants to eat a twig":"الفرن يريد أن يأكل غصناً.","The furnace wants to eat your note. You may need it later – maybe you should write it down?":"الفرن يريد أن يأكل ملاحظتك. قد تحتاج إليها لاحقاً؛ ربما عليك تدوينها؟",
+    "I don't have time to talk with you.":"ليس لدي وقت للتحدث معك.","Oh really? I have A LOT.":"حقاً؟ لدي الكثير من الوقت.",
+    "Tell me... Did you look through the window?":"أخبرني... هل نظرت من النافذة؟","Yes I did.":"نعم، فعلت.",
+    "So please take a look and tell me what did you see.":"إذن ألقِ نظرة وأخبرني ماذا رأيت.","Yeah. C'mon! Check that window.":"أجل. هيا! ألقِ نظرة من تلك النافذة.",
+    "Many flying... Objects?":"أجسام... طائرة كثيرة؟","Wow. I have to check it out!":"رائع! يجب أن أتحقق من الأمر!",
+    "Give a note.":"أعطه الملاحظة.","Keep a note to yourself.":"احتفظ بالملاحظة لنفسك.","I'm weak...":"أنا ضعيف...",
+    "Help me please...":"ساعدني أرجوك...","Still hungry...":"ما زلت جائعاً..."
   };
   var attrs = ["data-tooltip","data-info","title","alt","placeholder","aria-label"];
   var originalText = $.fn.text;
@@ -56,7 +73,7 @@
       node.__houseEnglish = current;
       for (var key2 in translations) if (translations[key2] === current) { node.__houseEnglish = key2; break; }
     }
-    node.nodeValue = translate(node.__houseEnglish);
+    var nextText = translate(node.__houseEnglish);\n    if (node.nodeValue !== nextText) node.nodeValue = nextText;
   }
   function setAttribute(el, name) {
     var saved = "houseEnglish" + name.replace(/[^a-z]/gi, "");
@@ -70,7 +87,7 @@
       el.dataset[saved] = current;
       for (var key2 in translations) if (translations[key2] === current) { el.dataset[saved] = key2; break; }
     }
-    el.setAttribute(name, translate(el.dataset[saved]));
+    var nextValue = translate(el.dataset[saved]);\n    if (current !== nextValue) el.setAttribute(name, nextValue);
   }
   function scan(root) {
     if (!root) return;
