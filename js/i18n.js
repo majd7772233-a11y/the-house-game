@@ -75,7 +75,8 @@
       node.__houseEnglish = current;
       for (var key2 in translations) if (translations[key2] === current) { node.__houseEnglish = key2; break; }
     }
-    var nextText = translate(node.__houseEnglish);\n    if (node.nodeValue !== nextText) node.nodeValue = nextText;
+    var nextText = translate(node.__houseEnglish);
+    if (node.nodeValue !== nextText) node.nodeValue = nextText;
   }
   function setAttribute(el, name) {
     var saved = "houseEnglish" + name.replace(/[^a-z]/gi, "");
@@ -89,7 +90,8 @@
       el.dataset[saved] = current;
       for (var key2 in translations) if (translations[key2] === current) { el.dataset[saved] = key2; break; }
     }
-    var nextValue = translate(el.dataset[saved]);\n    if (current !== nextValue) el.setAttribute(name, nextValue);
+    var nextValue = translate(el.dataset[saved]);
+    if (current !== nextValue) el.setAttribute(name, nextValue);
   }
   function scan(root) {
     if (!root) return;
