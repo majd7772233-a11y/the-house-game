@@ -160,7 +160,14 @@ var translations = {
   "Switch to English": "التبديل إلى الإنجليزية",
   "Switch to Arabic": "التبديل إلى العربية",
   "Wznów": "متابعة",
-  "Od nowa": "إعادة البدء"
+  "Od nowa": "إعادة البدء",
+  "Settings": "الإعدادات",
+  "Items": "العناصر",
+  "Sound": "الصوت",
+  "Toggle sound": "تبديل الصوت",
+  "Developed by: Magd Anwer": "من تطوير: Magd Anwer",
+  "For more details:": "لمزيد من التفاصيل:",
+  "Repository": "المستودع"
 };
 for (var translationKey in translations) {
  if (Object.prototype.hasOwnProperty.call(translations, translationKey)) {
@@ -222,8 +229,28 @@ function scan(root) {
 function updateLanguageItem() {
  if(!languageItem||!languageText)return;
  languageText.nodeValue=language==="ar"?"English":"العربية";
- languageItem.setAttribute("title",language==="ar"?"Switch to English":"Switch to Arabic");
- languageItem.setAttribute("aria-label",language==="ar"?"Switch to English":"Switch to Arabic");
+ var switchTitle=language==="ar"?"التبديل إلى الإنجليزية":"Switch to Arabic";
+ languageItem.setAttribute("title",switchTitle);
+ languageItem.setAttribute("aria-label",switchTitle);
+}
+function updateToolbarLabels() {
+ var controls=[
+  {selector:"#settings",id:"settings_label",en:"Settings",ar:"الإعدادات",title:"Settings"},
+  {selector:"#items #button",id:"items_label",en:"Items",ar:"العناصر",title:"Items"},
+  {selector:"#switch_sound",id:"sound_label",en:"Sound",ar:"الصوت",title:"Toggle sound"}
+ ];
+ for(var i=0;i<controls.length;i++){
+  var item=controls[i],control=document.querySelector(item.selector);
+  if(!control)continue;
+  var label=document.getElementById(item.id);
+  if(!label){
+   label=document.createElement("span");label.id=item.id;label.className="house-toolbar-label";
+   label.setAttribute("data-house-i18n-keep","true");label.setAttribute("aria-hidden","true");
+   control.appendChild(label);
+  }
+  label.textContent=language==="ar"?item.ar:item.en;
+  control.setAttribute("title",item.title);control.setAttribute("aria-label",item.title);
+ }
 }
 function addLanguageControl() {
  var list=document.querySelector("#settings ul");if(!list||document.getElementById("settings_language"))return;
@@ -240,7 +267,7 @@ function refresh() {
  document.documentElement.lang=language;document.documentElement.dir=language==="ar"?"rtl":"ltr";
  document.body.className=document.body.className.replace(/\bhouse-ar\b/g,"").replace(/\s+/g," ").replace(/^\s+|\s+$/g,"");
  if(language==="ar")document.body.className+=(document.body.className?" ":"")+"house-ar";
- scan(document.body);addLanguageControl();updateLanguageItem();
+ updateToolbarLabels();scan(document.body);addLanguageControl();updateLanguageItem();
 }
 function setLanguage(next) {
  if(next!=="ar"&&next!=="en")return;language=next;
