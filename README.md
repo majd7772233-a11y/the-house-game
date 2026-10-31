@@ -1,132 +1,240 @@
-The House - simple adventure game
-=================================
+# The House — لعبة المغامرة والغموض
 
-Introduction
-------------
+<div align="center">
 
-I've wanted to create a game since a long time. You know - one of those cool things you'd like try. :) When I started working on this project I had only basic knowledge about JS. Very basic. I didn't even know how to define an array and JS objects and methods were some kind of mystery. Thanks to this game my skills have developed tremendously. I'm still far from calling myself "pro JS dev" but I've got siginficantly closer.
+**لعبة مغامرات قصيرة ذات أجواء غامضة، تعمل مباشرةً في متصفح الويب.**
 
-**You can play it [right here](http://the-house.arturkot.pl).** Please mind that:
+[**العب The House الآن**](https://majd7772233-a11y.github.io/the-house-game/) ·
+[المستودع على GitHub](https://github.com/majd7772233-a11y/the-house-game) ·
+[ملف المطوّر الشخصي](https://github.com/majd7772233-a11y)
 
-* it's very, very short,
-* it's my first game ever. :)
+**اللغة الافتراضية: العربية** · **اللغة المتاحة أيضاً: English**
 
-How does it work?
------------------
+</div>
 
-The game is made using **HTML, CSS (Less) and JS (depends strongly on jQuery)**. Every room, roughly speaking, has simple markup in HTML which defines items (such as table, window, etc.) and click areas. CSS is responsible for graphic and JS for all the rest (DOM animations, interactions, saving game state). Since I had some experience with developing and designing websites I decided that HTML would be the right technology to start with.
+---
 
-### A little bit more about scripts:
+## نبذة عن المشروع
 
-* `js/audio.js` - all sounds are defined here,
-* `js/data.js` - responsible for saving game state,
-* `js/dialogue_box.js` - responsible for various popups,
-* `js/game.js` - sits on the top of all scripts and uses them to genrate game,
-* `js/items.js` - manages items found by a player,
-* `js/npcs.js` - non playable charcters,
-* `old_browser.js` - fires when not supported browser is detected,
-* `js/room.js` - generates rooms, responsible for interaction of the main character wit the game world **the A* (A-Star) algorithm here is by Andrea Giammarchi**,
-* `js/scenes.js` - cutscenes are stored here,
-* `js/settings.js` - game settings, at the time this file is responsible for reseting the game only :P,
-* `js/text_cloud.js` - speech balloons for the main character,
-* `js/tooltip.js` - tooltips :),
-* `js/utility.js` - super simple tool: I use it to define hit-areas for tha game grid,
-* `js/view.js` - generates outside views (when you look throught a window).
+**The House** لعبة استكشاف ومغامرة تدور أحداثها داخل منزل غامض. تستكشف الغرف والممرات، وتتفاعل مع الأشياء والشخصيات، وتجمع الأدوات وتستخدمها، وتحل الألغاز البيئية، وتتابع أحداثاً ومشاهد قصصية تقودك تدريجياً إلى كشف ما يحدث.
 
-Credits
--------
+هذه النسخة مبنية على مشروع اللعبة الأصلي الذي أنشأه **Artur Kot**. عمل هذا المستودع على إبقاء اللعبة قابلة للعب ونشرها، وإضافة تجربة عربية افتراضية مع إمكانية الرجوع إلى الإنجليزية، إلى جانب تحديث واجهة التعريف بالمشروع وتوثيقه.
 
-It's about time to mention resources (and people behind them) that helped me (A LOT) to create my game.
+> **حالة المشروع:** وصل العمل على النسخة الحالية إلى مرحلة شبه نهائية؛ التركيز المتبقي هو معالجة التفاصيل الصغيرة، والتحقق من تجربة اللعب، واستقبال بلاغات الأخطاء والتحسينات الضرورية.
 
-### Sound
+## روابط مهمة
 
-All sounds come from [Freesound.org](http://www.freesound.org). Full list below:
+| المورد | الرابط |
+| --- | --- |
+| تشغيل اللعبة | [majd7772233-a11y.github.io/the-house-game](https://majd7772233-a11y.github.io/the-house-game/) |
+| المستودع ومصدر الكود | [GitHub Repository](https://github.com/majd7772233-a11y/the-house-game) |
+| حساب المطوّر | [github.com/majd7772233-a11y](https://github.com/majd7772233-a11y) |
+| الإبلاغ عن مشكلة | [Issues](https://github.com/majd7772233-a11y/the-house-game/issues) |
 
-* ["Distant Shot"](http://www.freesound.org/people/ERH/sounds/32799/) by [ERH](http://www.freesound.org/people/ERH/)
-* ["Electric Wooshes"](http://www.freesound.org/people/Glaneur%20de%20sons/sounds/34172/) by [Glaneur de sons](http://www.freesound.org/people/Glaneur%20de%20sons/)
-* ["Sad Pattern Drone"](http://www.freesound.org/people/patchen/sounds/24701/) by [patchen](http://www.freesound.org/people/patchen/)
-* ["Sad Pattern Drone"](http://www.freesound.org/people/suonho/sounds/17724/) by [suonho](http://www.freesound.org/people/suonho/)
-* ["Swell Pad"](http://www.freesound.org/people/ERH/sounds/34141/) by [ERH](http://www.freesound.org/people/ERH/)
-* ["Horror Drone 001"](http://www.freesound.org/people/DJ%20Chronos/sounds/52134/) by [DJ Chronos](http://www.freesound.org/people/DJ%20Chronos/)
-* ["Creepy Phone"](http://www.freesound.org/people/FreqMan/sounds/25079/) by [FreqMan](http://www.freesound.org/people/FreqMan/)
-* ["Adrift On A Glassy Sea loop"](http://www.freesound.org/people/troutstrangler/sounds/25878/) by [troutstrangler](http://www.freesound.org/people/troutstrangler/)
-* ["Buzz 001"](http://www.freesound.org/people/futureprobe/sounds/18824/) by [futureprobe](http://www.freesound.org/people/futureprobe/)
-* ["Light 1"](http://www.freesound.org/people/TicTacShutUp/sounds/408/) by [TicTacShutUp](http://www.freesound.org/people/TicTacShutUp/)
-* ["Creak 9"](http://www.freesound.org/people/HerbertBoland/sounds/29696/) by [HerbertBoland](http://www.freesound.org/people/HerbertBoland/)
-* ["18 Close Door"](http://www.freesound.org/people/adegenerate/sounds/71212/) by [adegenerate](http://www.freesound.org/people/adegenerate/)
-* ["Open and Close Wooden Door"](http://www.freesound.org/people/fresco/sounds/35617/) by [fresco](http://www.freesound.org/people/fresco/)
-* ["Buzzer Variants#3"](http://www.freesound.org/people/Timbre/sounds/101355/) by [Timbre](http://www.freesound.org/people/Timbre/)
-* ["btn402"](http://www.freesound.org/people/junggle/sounds/26777/) by [junggle](http://www.freesound.org/people/junggle/)
-* ["Shower Curtain"](http://www.freesound.org/people/samplecat/sounds/11561/) by [samplecat](http://www.freesound.org/people/samplecat/)
-* ["SFX(12)"](http://www.freesound.org/people/Nimbyc/sounds/83944/) by [Nimbyc](http://www.freesound.org/people/Nimbyc/)
-* ["Crash"](http://www.freesound.org/people/sagetyrtle/sounds/40158/) by [Sagetyrtle](http://www.freesound.org/people/sagetyrtle/)
-* ["Button Click"](http://www.freesound.org/people/KorgMS2000B/sounds/54405/) by [KorgMS2000B](http://www.freesound.org/people/KorgMS2000B/)
-* ["Fire Forest Inferno"](http://www.freesound.org/people/Dynamicell/sounds/17548/) by [Dynamicell](http://www.freesound.org/people/Dynamicell/sounds/17548/)
-* ["BC Speaky Compactor"](http://www.freesound.org/people/cmusounddesign/sounds/119897/) by [cmusounddesign](http://www.freesound.org/people/cmusounddesign/)
+## ما الذي تتضمنه اللعبة؟
 
-### Graphic
+- **استكشاف الغرف:** التنقل بين غرف المنزل والممرات والمناطق والأماكن المرتبطة بالقصة.
+- **التفاعل مع البيئة:** فحص الأبواب والنوافذ والأثاث والأجهزة والأشياء التي قد تخفي أدلة.
+- **جمع الأدوات واستخدامها:** الاحتفاظ بالأغراض التي تعثر عليها، والعودة إليها عند الحاجة، واستخدامها في المواضع المناسبة.
+- **ألغاز مترابطة:** بعض الأفعال تغيّر حالة الغرف أو تفتح مسارات وأحداثاً جديدة.
+- **حوارات ومشاهد قصصية:** رسائل ومحادثات ومشاهد متحركة ومؤثرات صوتية تعزز أجواء الغموض.
+- **حفظ التقدم محلياً:** تخزين حالة اللعب في المتصفح حتى تتمكن من العودة إلى تقدمك السابق.
+- **الصوت:** مؤثرات صوتية وأصوات خلفية مع إمكانية كتمها وإعادتها.
+- **واجهة ثنائية اللغة:** العربية افتراضياً، والإنجليزية متاحة من إعدادات اللعبة.
 
-* ["Bust Basemesh"](http://chrrambow.deviantart.com/art/Bust-Basemesh-128960722) by [Christian Rambow](http://www.christianrambow.de/)
-* Textures from [CG Textures](http://cgtextures.com/)
+## التعريب والواجهة
 
-### JavaScript
+أصبحت العربية هي اللغة الافتراضية عند فتح اللعبة لأول مرة. ويمكن التبديل إلى الإنجليزية من خيار اللغة الموجود في قائمة **الإعدادات**.
 
-* [Modernizr](http://www.modernizr.com/)
-* [SoundManager 2](http://www.schillmania.com/projects/soundmanager2/)
-* [jQuery](http://jquery.com/)
-* [jQuery Colors](http://www.bitstorm.org/jquery/color-animation/) by [Edwin Martin](http://www.bitstorm.org/edwin/en/)
-* [jQuery Preload CSS Images](http://www.filamentgroup.com/lab/update_automatically_preload_images_from_css_with_jquery/) by [filament group](http://www.filamentgroup.com/about)
-* [jStorage](http://www.jstorage.info/) by [Andris Reinman](http://www.andrisreinman.com/)
-* [Spritely](http://spritely.net/) by [Artlogic](http://www.artlogic.net/)
-* [jQuerty UI](http://jqueryui.com/)
-* [jQuerty Transit](http://ricostacruz.com/jquery.transit/) by [Rico Sta. Cruz](http://ricostacruz.com/)
-* [A* (A-Star) algorithm function](http://devpro.it/examples/astar/) by [Andrea Giammarchi](http://www.blogger.com/profile/16277820774810688474)
+يشمل التعريب ما يلي:
 
-Licenses
---------
+- النصوص والحوارات والرسائل التي تظهر أثناء اللعب.
+- أسماء العناصر والأوصاف والإرشادات التي تظهر للاعب.
+- تلميحات الأدوات التي تظهر عند تمرير المؤشر فوق العناصر التفاعلية، بما فيها تلميح الشخصية الموجودة في المطبخ.
+- الشريط العلوي: **الإعدادات، العناصر، الصوت**.
+- قائمة الإعدادات وخيار تبديل اللغة.
+- لوحة معلومات المطوّر ورابط المستودع.
 
-### The House code:
+تتغير اتجاهات الصفحة بين RTL للعربية وLTR للإنجليزية. كما يحافظ التعريب على اسم اللعبة وشعارها الأصليين، ولا يغيّر بيانات العناصر المحفوظة لمجرد عرض نص مترجم.
 
-MIT License
+### تغيير اللغة
 
-Copyright (c) 2019 Artur Kot
+1. افتح قائمة **الإعدادات** في الشريط العلوي.
+2. اختر **English** للانتقال إلى الإنجليزية.
+3. اختر **العربية** للعودة إلى العربية.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+يُحفظ اختيار اللغة في تخزين المتصفح، لذلك يبقى الاختيار نفسه عند إعادة فتح اللعبة على المتصفح ذاته.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+## طريقة اللعب
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+اللعبة مصممة للتفاعل باستخدام الفأرة:
 
+1. انقر على الأرضية أو المكان الذي تريد أن تتحرك إليه الشخصية؛ ستتحرك الشخصية عبر شبكة الحركة داخل الغرفة.
+2. انقر على العناصر والأماكن التفاعلية لفحصها أو تشغيلها.
+3. عند جمع عنصر، يظهر في شريط **العناصر** العلوي.
+4. انقر على العنصر في حقيبتك لعرض وصفه وصورته.
+5. جرّب استخدام الأدوات في المواضع التي تبدو مناسبة؛ فقد تحتاج إلى جمع أكثر من دليل قبل أن تتمكن من التقدم.
+6. استخدم زر الصوت لكتم المؤثرات أو تشغيلها.
 
-### The House artwork:
+قد تكون بعض الأبواب أو التفاعلات غير متاحة قبل تنفيذ أحداث معينة. راقب الحوارات وتلميحات العناصر، وارجع إلى الغرف التي تغيرت حالتها بعد تقدمك في القصة.
 
-[Creative Commons Attribution 3.0 License](http://creativecommons.org/licenses/by/3.0/)
+### الإعدادات وإعادة اللعب
 
+تحتوي قائمة الإعدادات على خيار إعادة اللعبة من البداية. إعادة البدء تمسح بيانات التقدم المحفوظة في المتصفح، لذلك استخدمها فقط عندما تريد بدء تجربة جديدة.
 
+## تشغيل اللعبة محلياً
 
+المشروع تطبيق ويب ثابت (Static Web App)، ولا يحتاج إلى خادم خلفي أو قاعدة بيانات. لكنه يعتمد على تحميل ملفات HTML للغرف والصور والأصوات من مسارات نسبية؛ لذلك شغّله عبر خادم HTTP محلي بدلاً من فتح `index.html` مباشرةً باستخدام `file://`.
 
+### باستخدام Python
 
+1. نزّل المستودع أو استنسخه:
 
+   ```bash
+   git clone https://github.com/majd7772233-a11y/the-house-game.git
+   cd the-house-game
+   ```
 
+2. شغّل خادم الملفات:
 
+   ```bash
+   python -m http.server 8000
+   ```
 
+3. افتح هذا العنوان في المتصفح:
 
+   ```
+   http://localhost:8000/
+   ```
 
+لا يتطلب المشروع تثبيت حزم عبر npm لتشغيل النسخة الحالية. استخدم متصفحاً حديثاً يدعم خصائص CSS وJavaScript التي تعتمد عليها اللعبة.
 
+## التقنيات والبنية
 
+تعتمد اللعبة على تقنيات الويب التقليدية، دون إطار عمل حديث أو واجهة خادم:
 
+| التقنية | الاستخدام |
+| --- | --- |
+| HTML | الصفحة الرئيسية ومقاطع الغرف والمشاهد. |
+| CSS وLess | تخطيط الغرف والعناصر والحركة والمؤثرات المرئية. |
+| JavaScript | منطق اللعبة، الحركة، التفاعلات، الألغاز، الحوار، العناصر والحفظ. |
+| jQuery 1.7 | التعامل مع DOM وربط الأحداث وتحميل مقاطع الغرف. |
+| Modernizr | التحقق من دعم بعض خصائص المتصفح. |
+| SoundManager 2 | تشغيل المؤثرات والأصوات. |
+| jStorage | حفظ حالة اللعبة محلياً في المتصفح. |
+| jQuery UI وTransit وSpritely | السحب والحركة وبعض المؤثرات والرسوم المتحركة. |
 
+تستخدم الحركة شبكة من الخلايا وخوارزمية **A*** لإيجاد المسار المناسب للشخصية. تعود نسبة الخوارزمية إلى **Andrea Giammarchi** وفق إسناد المشروع الأصلي.
 
+### خريطة الملفات
+
+| المسار | الوظيفة |
+| --- | --- |
+| `index.html` | نقطة الدخول، تحميل الأنماط والسكربتات، وحاويات واجهة اللعبة. |
+| `*.html` في جذر المشروع | مقاطع الغرف والمشاهد التي يجري تحميلها عند الحاجة. |
+| `js/game.js` | المتحكم الرئيسي، إعداد الغرف، التفاعلات، الألغاز والانتقال بينها. |
+| `js/room.js` | محرك الغرف، شبكة الحركة، تصادم العناصر وحركة الشخصية. |
+| `js/scenes.js` | المشاهد القصصية والمؤثرات وتسلسل الأحداث. |
+| `js/items.js` | جمع العناصر وعرضها واستخدامها واستعادتها. |
+| `js/data.js` | قراءة وتهيئة بيانات التقدم المحفوظة. |
+| `js/npcs.js` | سلوك الشخصيات غير القابلة للعب. |
+| `js/audio.js` | إعداد الأصوات والتحكم في كتمها وتشغيلها. |
+| `js/settings.js` | قائمة الإعدادات وإعادة اللعبة وملء الشاشة. |
+| `js/dialogue_box.js` | مربعات الحوار والخيارات. |
+| `js/tooltip.js` | تلميحات العناصر التفاعلية. |
+| `js/text_cloud.js` | فقاعات الكلام فوق الشخصية. |
+| `js/view.js` | المشاهد الخارجية والإطلالات عبر النوافذ. |
+| `js/i18n.js` | قاموس التعريب وإدارة اللغتين واتجاه الصفحة. |
+| `js/min/` | ملفات JavaScript التي تحملها صفحة اللعبة فعلياً. |
+| `css/styles.less` | ملف Less الرئيسي الذي يستورد أنماط المشروع. |
+| `css/*.less` | أنماط الغرف والمكونات المنفصلة. |
+| `css/styles.css` | ملف CSS المنشور الذي تحمّله اللعبة. |
+| `images/` | الخلفيات والصور والشخصيات والأيقونات والعناصر. |
+| `sound/` | ملفات الصوت بصيغها المحلية. |
+| `fonts/` | ملفات الخطوط المستخدمة في التصميم. |
+
+### ملاحظات للمساهمة والتعديل
+
+- عدّل ملفات JavaScript الأصلية داخل `js/`، ثم حافظ على تزامن الملفات المقابلة داخل `js/min/`؛ الصفحة الرئيسية تحمل نسخ التشغيل الموجودة في مجلد `min`.
+- عدّل ملفات Less المصدرية، ثم حدّث `css/styles.css` المنشور؛ تعديل ملف Less وحده لا يغيّر ما يراه اللاعب.
+- ملفات الغرف تستخدم معرّفات وعناصر وخصائص `data-*` تعتمد عليها JavaScript وCSS. لا تغيّر أسماءها دون تتبع جميع المراجع.
+- بيانات `data-info` مرتبطة بوصف العناصر وتخزينها، لذلك يجب عدم ترجمتها مباشرةً داخل DOM بطريقة تؤثر في بيانات الحفظ. أما `data-tooltip` فهي نصوص تلميحات موجهة للاعب وتخضع للتعريب.
+- لا تحذف إسنادات المؤلف الأصلي أو تراخيص الصور والأصوات والمكتبات عند تعديل الملفات أو إعادة توزيعها.
+
+## الإسهام والإبلاغ عن الأخطاء
+
+الملاحظات المتعلقة بالترجمة، أو التلميحات، أو التفاعلات، أو الحفظ، أو الصوت، أو العرض على أحجام الشاشات المختلفة مرحّب بها.
+
+قبل إرسال بلاغ، يُفضّل ذكر:
+- الغرفة أو الموضع الذي ظهرت فيه المشكلة.
+- الخطوات التي تؤدي إلى ظهورها.
+- ما كنت تتوقع حدوثه وما حدث فعلياً.
+- لغة اللعبة والمتصفح المستخدم، وأرفق صورة للشاشة عند توفرها.
+
+[افتح بلاغاً جديداً في Issues](https://github.com/majd7772233-a11y/the-house-game/issues).
+
+## الحقوق والشكر
+
+هذا المستودع مبني على لعبة **The House** الأصلية للمطور **Artur Kot**. يحتفظ المشروع بإشعارات حقوق النشر والتراخيص الأصلية، ولا يعني التعريب أو تحديث صفحة المشروع ادعاء ملكية العمل الأصلي.
+
+### الأصوات
+
+تُنسب الأصوات التالية إلى أصحابها على Freesound كما في توثيق المشروع الأصلي:
+
+- [Distant Shot](https://www.freesound.org/people/ERH/sounds/32799/) — ERH.
+- [Electric Wooshes](https://www.freesound.org/people/Glaneur%20de%20sons/sounds/34172/) — Glaneur de sons.
+- [Sad Pattern Drone](https://www.freesound.org/people/patchen/sounds/24701/) — patchen.
+- [Sad Pattern Drone](https://www.freesound.org/people/suonho/sounds/17724/) — suonho.
+- [Swell Pad](https://www.freesound.org/people/ERH/sounds/34141/) — ERH.
+- [Horror Drone 001](https://www.freesound.org/people/DJ%20Chronos/sounds/52134/) — DJ Chronos.
+- [Creepy Phone](https://www.freesound.org/people/FreqMan/sounds/25079/) — FreqMan.
+- [Adrift On A Glassy Sea loop](https://www.freesound.org/people/troutstrangler/sounds/25878/) — troutstrangler.
+- [Buzz 001](https://www.freesound.org/people/futureprobe/sounds/18824/) — futureprobe.
+- [Light 1](https://www.freesound.org/people/TicTacShutUp/sounds/408/) — TicTacShutUp.
+- [Creak 9](https://www.freesound.org/people/HerbertBoland/sounds/29696/) — HerbertBoland.
+- [18 Close Door](https://www.freesound.org/people/adegenerate/sounds/71212/) — adegenerate.
+- [Open and Close Wooden Door](https://www.freesound.org/people/fresco/sounds/35617/) — fresco.
+- [Buzzer Variants #3](https://www.freesound.org/people/Timbre/sounds/101355/) — Timbre.
+- [btn402](https://www.freesound.org/people/junggle/sounds/26777/) — junggle.
+- [Shower Curtain](https://www.freesound.org/people/samplecat/sounds/11561/) — samplecat.
+- [SFX(12)](https://www.freesound.org/people/Nimbyc/sounds/83944/) — Nimbyc.
+- [Crash](https://www.freesound.org/people/sagetyrtle/sounds/40158/) — Sagetyrtle.
+- [Button Click](https://www.freesound.org/people/KorgMS2000B/sounds/54405/) — KorgMS2000B.
+- [Fire Forest Inferno](https://www.freesound.org/people/Dynamicell/sounds/17548/) — Dynamicell.
+- [BC Speaky Compactor](https://www.freesound.org/people/cmusounddesign/sounds/119897/) — cmusounddesign.
+
+### الرسوم والخامات
+
+- نموذج [Bust Basemesh](http://chrrambow.deviantart.com/art/Bust-Basemesh-128960722) — Christian Rambow.
+- خامات [CG Textures](http://cgtextures.com/).
+
+### المكتبات والأدوات
+
+يعتمد المشروع الأصلي على أعمال ومكتبات خارجية، ومن بينها:
+
+- [Modernizr](https://modernizr.com/).
+- [SoundManager 2](https://www.schillmania.com/projects/soundmanager2/).
+- [jQuery](https://jquery.com/).
+- [jQuery Colors](http://www.bitstorm.org/jquery/color-animation/) — Edwin Martin.
+- [jQuery Preload CSS Images](http://www.filamentgroup.com/lab/update_automatically_preload_images_from_css_with_jquery/) — Filament Group.
+- [jStorage](http://www.jstorage.info/) — Andris Reinman.
+- [Spritely](http://spritely.net/) — Artlogic.
+- [jQuery UI](https://jqueryui.com/).
+- [jQuery Transit](http://ricostacruz.com/jquery.transit/) — Rico Sta. Cruz.
+- خوارزمية [A* Pathfinding](http://devpro.it/examples/astar/) — Andrea Giammarchi.
+
+### التراخيص
+
+- **كود اللعبة الأصلي:** مرخّص وفق MIT. راجع [LICENSE.md](LICENSE.md)، واحتفظ بإشعار حقوق النشر الأصلي لـ Artur Kot عند إعادة الاستخدام أو التوزيع.
+- **أعمال اللعبة الفنية:** يشير توثيق المشروع الأصلي إلى [Creative Commons Attribution 3.0](https://creativecommons.org/licenses/by/3.0/).
+- **المكتبات والأصوات والخامات الخارجية:** تخضع لتراخيص أصحابها الأصلية؛ راجع صفحاتها وشروطها قبل إعادة استخدامها بصورة مستقلة.
+
+---
+
+## المطوّر
+
+**من تطوير وتحديث التعريب والواجهة: Magd Anwer**
+
+- [GitHub Profile](https://github.com/majd7772233-a11y)
+- [The House — Repository](https://github.com/majd7772233-a11y/the-house-game)
 
