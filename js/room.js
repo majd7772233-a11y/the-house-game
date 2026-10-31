@@ -167,7 +167,7 @@ var room = {
 				// 		scene.no_click(true, 'rgba(0, 0, 0, .8)');
 				// 		var $noclick = $('#no_click');
 				// 		$noclick.addClass('the-resume-screen');
-				// 		var resumeScreen = '<div id="resume_screen"><p><span id="resume_screen_resume" class="icon"></span><span class="text">Wznów</span></p><p><span id="resume_screen_restart" class="icon"></span><span class="text">Od nowa</span></p></div>';
+				// 		var resumeScreen = '<div id="resume_screen"><p><span id="resume_screen_resume" class="icon"></span><span class="text">Resume</span></p><p><span id="resume_screen_restart" class="icon"></span><span class="text">Restart</span></p></div>';
 				// 		$noclick
 				// 			.css('z-index', 9999)
 				// 			.append(resumeScreen);
