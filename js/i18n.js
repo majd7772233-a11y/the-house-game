@@ -32,7 +32,7 @@
     "How to enable javascript?":"كيفية تفعيل JavaScript؟","see instructions":"اطّلع على التعليمات","You have to enable javascript on your browser in order to play The House:":"يجب تفعيل JavaScript في متصفحك لتتمكن من لعب The House:",
     "Note:":"ملاحظة:","You'll also need the latest browser version. Otherwise the game won't start!":"ستحتاج أيضاً إلى أحدث إصدار من المتصفح، وإلا فلن تبدأ اللعبة!",
     "Game made by":"من تطوير","Follow me on":"تابعني على","Twitter":"Twitter","Learn more about the game on":"تعرف على المزيد عن اللعبة في","Github":"GitHub",
-    "Loading...":"جارٍ التحميل...","Resume":"متابعة","Restart":"إعادة البدء","The House":"The House","key":"المفتاح","note":"الملاحظة","twig":"الغصن","coal":"الفحم","Go to the room":"اذهب إلى الغرفة",
+    "Loading...":"جارٍ التحميل...","Resume":"متابعة","Restart":"إعادة البدء","The House":"The House","Switch game language":"تغيير لغة اللعبة","key":"المفتاح","note":"الملاحظة","twig":"الغصن","coal":"الفحم","Go to the room":"اذهب إلى الغرفة",
     "Looks like it's turned off.":"يبدو أنه مطفأ.","I... I don't think it's a good idea to go there.":"أنا... لا أعتقد أن الذهاب إلى هناك فكرة جيدة.",
     "There's NO WAY I'm going there!":"لا يمكنني الذهاب إلى هناك إطلاقاً!","counting...":"جارٍ العد...","You're not ready yet":"لست مستعداً بعد.",
     "You have to be at least partially complete to travel...":"يجب أن تنجز جزءاً من المهمة على الأقل حتى تتمكن من الانتقال...",
@@ -130,7 +130,7 @@
     var item = document.createElement("li");
     item.id = "settings_language";
     item.appendChild(document.createTextNode("English"));
-    item.title = "تغيير لغة اللعبة";
+    item.title = "Switch game language";
     list.insertBefore(item, list.firstChild);
     $(item).on("click", function (event) {
       event.stopPropagation();
