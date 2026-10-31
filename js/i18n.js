@@ -85,6 +85,8 @@ var translations = {
   "Take a look outside": "ألقِ نظرة إلى الخارج",
   "The fridge": "الثلاجة",
   "Looks like it": "يبدو كذلك",
+  "Looks like it's sleeping now.": "يبدو أنه نائم الآن.",
+  "Looks like it’s sleeping now.": "يبدو أنه نائم الآن.",
   "Flush it!": "اسحب السيفون!",
   "Take a look in the mirror": "انظر في المرآة",
   "The washing curtain": "ستارة الحمّام",
@@ -185,7 +187,7 @@ for (var originalKey in translations) {
   if (arabicValue && !Object.prototype.hasOwnProperty.call(reverseTranslations, arabicValue)) reverseTranslations[arabicValue] = englishValue;
  }
 }
-var attributes=["title","alt","placeholder","aria-label"];
+var attributes=["title","alt","placeholder","aria-label","data-tooltip"];
 var storageKey="the-house-language-v2";
 var language="ar", languageItem=null, languageText=null;
 try { var saved=window.localStorage.getItem(storageKey); if(saved==="ar"||saved==="en") language=saved; } catch(ignore) {}
