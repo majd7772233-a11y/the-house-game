@@ -5244,3 +5244,36 @@ body.house-ar #items { direction: rtl; }
 body.house-ar #settings_language { cursor: pointer; }
 
 body.house-ar #preloader::before { content: "جارٍ التحميل..."; font-family: Tahoma, Arial, sans-serif; }
+
+
+/* Localized labels for the top toolbar sprite */
+#settings > .house-toolbar-label,
+#items #button > .house-toolbar-label,
+#switch_sound > .house-toolbar-label {
+  position: absolute;
+  top: 0;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 3px;
+  overflow: hidden;
+  border-radius: 0 5px 5px 0;
+  background: rgba(0, 0, 0, .8);
+  color: #E8542E;
+  font: 12px/1 Arial, sans-serif;
+  text-align: center;
+  text-transform: none;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+}
+#settings > .house-toolbar-label { left: 52px; width: 68px; }
+#items #button > .house-toolbar-label { left: 58px; width: 62px; }
+#switch_sound > .house-toolbar-label { left: 55px; width: 65px; }
+body.house-ar .house-toolbar-label {
+  direction: rtl;
+  font-family: Tahoma, Arial, sans-serif;
+}
+#author { text-transform: none; }
