@@ -154,7 +154,6 @@
   $(function () {
     addLanguageControl();
     refresh();
-    window.setInterval(addLanguageControl, 1000);
   });
   window.TheHouseI18n = {setLanguage:function (value) { if (value === "ar" || value === "en") { language=value; refresh(); } }, getLanguage:function () { return language; }, translate:translate};
 })(window, document, window.jQuery);
