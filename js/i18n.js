@@ -1,5 +1,6 @@
-(function (window, document, $) {
-  if (!$) return;
+(function (window, document) {
+  "use strict";
+
   var translations = {
     "Enter":"دخول","reset game":"إعادة اللعبة","Start from the beginning.":"ابدأ من البداية","full screen":"ملء الشاشة",
     "Hey!":"مهلاً!","Hello!":"مرحباً!","I hope he's alive...":"آمل أن يكون ما زال حياً...","What?!":"ماذا؟!","What's going on?!":"ما الذي يحدث؟!",
@@ -50,6 +51,23 @@
     "Many flying... Objects?":"أجسام... طائرة كثيرة؟","Wow. I have to check it out!":"رائع! يجب أن أتحقق من الأمر!",
     "Give a note.":"أعطه الملاحظة.","Keep a note to yourself.":"احتفظ بالملاحظة لنفسك.","I'm weak...":"أنا ضعيف...",
     "Help me please...":"ساعدني أرجوك...","Still hungry...":"ما زلت جائعاً..."
+    "Looks like your browser is a little":"يبدو أن متصفحك",
+    "too old":"قديم جداً",
+    "to run this game. ;)":"لتشغيل هذه اللعبة. ;)",
+    "In order to play":"لكي تلعب",
+    "you have to":"يجب عليك",
+    "install one of the modern browsers":"تثبيت أحد المتصفحات الحديثة",
+    "Pick tiles":"اختيار المربعات",
+    "x width":"العرض الأفقي",
+    "y width":"العرض العمودي",
+    "Generate!":"إنشاء!",
+    "Array:":"المصفوفة:",
+    "Selectors:":"المحددات:",
+    "Switch to English":"التبديل إلى الإنجليزية",
+    "Switch to Arabic":"التبديل إلى العربية",
+    "Wznów":"متابعة",
+    "Od nowa":"إعادة البدء"
+
   };
   var attrs = ["data-tooltip","data-info","title","alt","placeholder","aria-label"];
   var originalText = $.fn.text;
@@ -159,3 +177,175 @@
   });
   window.TheHouseI18n = {setLanguage:function (value) { if (value === "ar" || value === "en") { language=value; refresh(); } }, getLanguage:function () { return language; }, translate:translate};
 })(window, document, window.jQuery);
+  var attributes = ["data-tooltip", "data-info", "title", "alt", "placeholder", "aria-label"];
+  var storageKey = "the-house-language-v2";
+  var language = "ar";
+  var languageItem = null;
+  var languageText = null;
+
+  try {
+    var savedLanguage = window.localStorage.getItem(storageKey);
+    if (savedLanguage === "ar" || savedLanguage === "en") language = savedLanguage;
+  } catch (ignore) {}
+
+  function translate(value) {
+    if (typeof value !== "string" || language !== "ar") return value;
+    var match = value.match(/^(\\s*)([\\s\\S]*?)(\\s*)$/);
+    var core = match ? match[2] : value;
+    if (Object.prototype.hasOwnProperty.call(translations, core)) {
+      return (match ? match[1] : "") + translations[core] + (match ? match[3] : "");
+    }
+    return value.replace(/The item "([^"]+)" has been used!/g, function (all, item) {
+      return "تم استخدام العنصر «" + (translations[item] || item) + "»!";
+    });
+  }
+
+  function syncText(node) {
+    if (!node || node.nodeType !== 3 || !node.nodeValue || !node.nodeValue.trim()) return;
+    if (node.parentNode && node.parentNode.closest && node.parentNode.closest("[data-house-i18n-keep]")) return;
+
+    var current = node.nodeValue;
+    if (node.__houseI18nOriginal === undefined) {
+      node.__houseI18nOriginal = current;
+    } else if (current !== node.__houseI18nRendered && current !== node.__houseI18nOriginal) {
+      node.__houseI18nOriginal = current;
+    }
+
+    var next = translate(node.__houseI18nOriginal);
+    node.__houseI18nRendered = next;
+    if (current !== next) node.nodeValue = next;
+  }
+
+  function syncAttribute(element, name) {
+    if (!element || element.nodeType !== 1 || element.hasAttribute("data-house-i18n-keep")) return;
+    var current = element.getAttribute(name);
+    if (current === null) return;
+
+    if (!element.__houseI18nAttributes) element.__houseI18nAttributes = {};
+    var state = element.__houseI18nAttributes[name];
+    if (!state) {
+      state = element.__houseI18nAttributes[name] = { original: current, rendered: null };
+    } else if (current !== state.rendered && current !== state.original) {
+      state.original = current;
+    }
+
+    var next = translate(state.original);
+    state.rendered = next;
+    if (current !== next) element.setAttribute(name, next);
+  }
+
+  function scan(root) {
+    if (!root) return;
+    if (root.nodeType === 3) {
+      syncText(root);
+      return;
+    }
+    if (root.nodeType !== 1 && root.nodeType !== 9 && root.nodeType !== 11) return;
+
+    if (root.nodeType === 1) {
+      for (var a = 0; a < attributes.length; a++) syncAttribute(root, attributes[a]);
+    }
+
+    var walker = document.createTreeWalker(root, 4, null, false);
+    var node;
+    while ((node = walker.nextNode())) syncText(node);
+
+    if (root.querySelectorAll) {
+      var elements = root.querySelectorAll("*");
+      for (var i = 0; i < elements.length; i++) {
+        for (var j = 0; j < attributes.length; j++) syncAttribute(elements[i], attributes[j]);
+      }
+    }
+  }
+
+  function updateLanguageItem() {
+    if (!languageItem || !languageText) return;
+    languageText.nodeValue = language === "ar" ? "English" : "العربية";
+    languageItem.setAttribute("title", language === "ar" ? "Switch to English" : "Switch to Arabic");
+    languageItem.setAttribute("aria-label", language === "ar" ? "Switch to English" : "Switch to Arabic");
+  }
+
+  function refresh() {
+    if (!document.body) return;
+    document.documentElement.lang = language;
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+    document.body.className = document.body.className.replace(/\\bhouse-ar\\b/g, "").replace(/\\s+/g, " ").replace(/^\\s+|\\s+$/g, "");
+    if (language === "ar") document.body.className += (document.body.className ? " " : "") + "house-ar";
+    scan(document.body);
+    updateLanguageItem();
+    addLanguageControl();
+  }
+
+  function setLanguage(nextLanguage) {
+    if (nextLanguage !== "ar" && nextLanguage !== "en") return;
+    language = nextLanguage;
+    try { window.localStorage.setItem(storageKey, language); } catch (ignore) {}
+    refresh();
+  }
+
+  function addLanguageControl() {
+    var list = document.querySelector("#settings ul");
+    if (!list || document.getElementById("settings_language")) return;
+
+    languageItem = document.createElement("li");
+    languageItem.id = "settings_language";
+    languageItem.setAttribute("data-house-i18n-keep", "true");
+    languageItem.setAttribute("role", "button");
+    languageItem.setAttribute("tabindex", "0");
+    languageText = document.createTextNode("");
+    languageItem.appendChild(languageText);
+
+    function toggleLanguage(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      setLanguage(language === "ar" ? "en" : "ar");
+    }
+    languageItem.addEventListener("click", toggleLanguage, false);
+    languageItem.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") toggleLanguage(event);
+    }, false);
+
+    list.insertBefore(languageItem, list.firstChild);
+    updateLanguageItem();
+  }
+
+  function initialize() {
+    if (!document.body) return;
+    refresh();
+    if (window.MutationObserver) {
+      var observer = new MutationObserver(function (records) {
+        for (var i = 0; i < records.length; i++) {
+          var record = records[i];
+          if (record.type === "characterData") syncText(record.target);
+          else if (record.type === "attributes") syncAttribute(record.target, record.attributeName);
+          else {
+            for (var j = 0; j < record.addedNodes.length; j++) scan(record.addedNodes[j]);
+          }
+        }
+        addLanguageControl();
+      });
+      observer.observe(document.documentElement, {
+        subtree: true,
+        childList: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: attributes
+      });
+    }
+  }
+
+  window.TheHouseI18n = {
+    setLanguage: setLanguage,
+    getLanguage: function () { return language; },
+    translate: translate,
+    refresh: refresh
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialize, false);
+  } else {
+    initialize();
+  }
+})(window, document);
