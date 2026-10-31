@@ -5223,13 +5223,13 @@ body,
   background: url(../images/resume_screen.png);
   background-position: 0 -64px;
 }
-\n
+
 /* Arabic/English localization */
 body.house-ar { font-family: Tahoma, Arial, sans-serif; }
 body.house-ar #dialogue_box, body.house-ar #tooltip, body.house-ar #lightbox,
 body.house-ar #items, body.house-ar #settings ul, body.house-ar #author,
 body.house-ar .text_cloud, body.house-ar #resume_screen, body.house-ar #old_browser,
-body.house-ar #intro .message { direction: rtl; text-align: right; font-family: Tahoma, Arial, sans-serif; }
+body.house-ar #intro .message, body.house-ar #enter { direction: rtl; text-align: right; font-family: Tahoma, Arial, sans-serif; }
 body.house-ar #dialogue_box { text-align: right; }
 body.house-ar #options li { padding-left: 0; padding-right: 20px; background-position: right 12px; }
 body.house-ar #settings ul { text-align: center; }
