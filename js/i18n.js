@@ -162,6 +162,14 @@ var translations = {
   "Wznów": "متابعة",
   "Od nowa": "إعادة البدء"
 };
+for (var translationKey in translations) {
+ if (Object.prototype.hasOwnProperty.call(translations, translationKey)) {
+  var normalizedKey = translationKey.replace(/^\s+|\s+$/g, "");
+  if (normalizedKey !== translationKey && !Object.prototype.hasOwnProperty.call(translations, normalizedKey)) {
+   translations[normalizedKey] = translations[translationKey].replace(/^\s+|\s+$/g, "");
+  }
+ }
+}
 var attributes=["data-tooltip","data-info","title","alt","placeholder","aria-label"];
 var storageKey="the-house-language-v2";
 var language="ar", languageItem=null, languageText=null;
