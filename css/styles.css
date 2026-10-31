@@ -5223,3 +5223,22 @@ body,
   background: url(../images/resume_screen.png);
   background-position: 0 -64px;
 }
+\n
+/* Arabic/English localization */
+body.house-ar { font-family: Tahoma, Arial, sans-serif; }
+body.house-ar #dialogue_box, body.house-ar #tooltip, body.house-ar #lightbox,
+body.house-ar #items, body.house-ar #settings ul, body.house-ar #author,
+body.house-ar .text_cloud, body.house-ar #resume_screen, body.house-ar #old_browser,
+body.house-ar #intro .message { direction: rtl; text-align: right; font-family: Tahoma, Arial, sans-serif; }
+body.house-ar #dialogue_box { text-align: right; }
+body.house-ar #options li { padding-left: 0; padding-right: 20px; background-position: right 12px; }
+body.house-ar #settings ul { text-align: center; }
+body.house-ar #author p { padding-left: 0; padding-right: 20px; border-left: 0; border-right: 1px solid #fefefe; margin-left: 0; margin-right: 20px; float: right; }
+body.house-ar #author p:first-of-type { border: 0; margin-right: 0; }
+body.house-ar #author .btn { float: right; }
+body.house-ar #resume_screen .icon, body.house-ar #resume_screen .text { float: right; }
+body.house-ar #resume_screen .icon { margin-right: 0; margin-left: 10px; }
+body.house-ar #tooltip { min-width: 150px; width: auto; max-width: 260px; }
+body.house-ar .text_cloud { text-align: right; }
+body.house-ar #items { direction: rtl; }
+body.house-ar #settings_language { cursor: pointer; }
